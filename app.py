@@ -20,7 +20,7 @@ def data_req():
         text = imProc.handleRotation(req)
         sys.stdout.write('data_req: 3')
 
-        return jsonify(text)
+        return text
 
 
 # @app.route('/data/<string:name>')
