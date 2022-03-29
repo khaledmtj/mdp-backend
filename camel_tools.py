@@ -1,5 +1,6 @@
 import camel_tools.tokenizers.word
 import re
+import sys
 from camel_tools.disambig.mle import MLEDisambiguator
 
 from camel_tools.tokenizers.word import simple_word_tokenize
@@ -20,3 +21,4 @@ lemmas = [d.analyses[0].analysis['lex'] for d in disambig]
 # Print the combined feature values extracted above
 for triplet in zip(diacritized, pos_tags, lemmas):
     print(triplet)
+    sys.stdout.write(triplet)
