@@ -140,3 +140,51 @@ class ImageProcessing :
         
         'text_detected' : text_detected
          }
+
+
+
+        json_string = json.dumps(data,ensure_ascii=False)
+        return json_string
+        
+    def base64_to_image(self, base64str):
+        string = base64str
+        decoded_data=base64.b64decode(string)
+        np_data=np.frombuffer(decoded_data,np.uint8)
+        img=cv2.imdecode(np_data,cv2.IMREAD_UNCHANGED)
+##        cv2.imshow("test",img)
+##        cv2.waitKey(0)
+        return img
+        
+
+    def handleRotation(self, base64str):
+        image = self.base64_to_image(base64str)
+        nbr_rots = 8
+        angle=0
+        d={}
+        for x in range(nbr_rots):
+            image0=self.rotation2(image,angle)
+            text_det=self.text_detected(image0)
+            #d[len(text_det)]=angle
+            d[angle]=len(text_det)
+            angle+= (360 / nbr_rots)
+        max_angle = max(d, key=d.get)
+        image_max = self.rotation2(image,max_angle)
+        sys.stdout.write("handle rotation 1-")
+        text_det_max=self.text_detected(image_max)
+        sys.stdout.write("handle rotation 2-")
+        json_detected=self.to_json(text_det_max)
+   
+        
+       
+        return json_detected
+    
+    
+##num1=ImageProcessing('rotated_test')
+##image=num1.image_read('./images/arabic_2.jpg')
+##image_rot=num1.rotation2(image,19.5)
+##num1=ImageProcessing('rotated_test')
+##image=num1.image_read('./images/rotated_test.jpg')
+##a=num1.handleRotation(image)
+##print(a)
+
+    
