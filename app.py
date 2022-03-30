@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import flask
 from mdp_processing import ImageProcessing
 import sys
+import camel_tools
 
 app = Flask(__name__)
 
