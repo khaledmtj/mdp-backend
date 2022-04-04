@@ -48,7 +48,7 @@ class ImageProcessing :
         import pytesseract
         pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
         try:
-            text_from_image = pytesseract.image_to_string(image,lang='ara', timeout=2)
+            text_from_image = pytesseract.image_to_string(image,lang='ara', timeout=3)
         except RuntimeError as timeout_error:
             text_from_image = ""
       
