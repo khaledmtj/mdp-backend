@@ -84,8 +84,13 @@ class ImageProcessing :
         nbr_rots = 8
         angle=0
         d={}
-        image_gray=self.rgb2gray(image)
-        image_thresh=self.threshold(image_gray,162,255,cv2.THRESH_BINARY)
+        img = cv2.resize(image, dsize = None, fx=1.2, fy=1.2, interpolation=cv2.INTER_CUBIC)
+        img_gray=self.rgb2gray(image)
+        kernel = np.ones((2, 2), np.uint8)
+        img = cv2.dilate(img_gray, kernel, iterations=1)
+        img = cv2.erode(img, kernel, iterations=1)
+        image_thresh=cv2.threshold(cv2.GaussianBlur(img, (3, 3), 0), 100, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+        
         for x in range(nbr_rots):
             image0=self.rotation2(image_thresh,angle)
             text_det=self.text_detected(image0)
