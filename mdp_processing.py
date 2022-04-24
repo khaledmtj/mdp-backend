@@ -93,15 +93,13 @@ class ImageProcessing :
         
         for x in range(nbr_rots):
             image0=self.rotation2(image_thresh,angle)
+            sys.stdout.write("Rotation " + x + " - ")
             text_det=self.text_detected(image0)
             d[angle]=[len(text_det),text_det]
             angle+= (360 / nbr_rots)
         max_angle = max(d, key=d.get)
       
-        
-        sys.stdout.write("handle rotation 1-")
         text_det_max=d[max_angle][1]
-        sys.stdout.write("handle rotation 2-")
         json_detected=self.to_json(text_det_max)
    
         
