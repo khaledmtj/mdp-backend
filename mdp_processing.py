@@ -93,7 +93,7 @@ class ImageProcessing :
         
         for x in range(nbr_rots):
             image0=self.rotation2(image_thresh,angle)
-            sys.stdout.write("Rotation " + x + " - ")
+            sys.stdout.write("Rotation " + str(x) + " - ")
             text_det=self.text_detected(image0)
             d[angle]=[len(text_det),text_det]
             angle+= (360 / nbr_rots)
